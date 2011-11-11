@@ -15,7 +15,7 @@ exec = require("child_process").exec,
 child;
 
 /**
- * Include own modules
+ * Include own modules code changed
  */
 
 // var col = require("./colorSVG.js");
