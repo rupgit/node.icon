@@ -14,12 +14,22 @@ util = require("util"),
 exec = require("child_process").exec,
 child;
 
+
+
+
+/**
+ * Include own modules another comment
+ * This comment requires a merge later
+ */
+
+// var col = require("./colorSVG.js");
+
 /**
  * Define vars
  */
 
 var	rootPath = "../images",
-imagePath = "images",
+svgPath = "svgIcons",
 tmpPath = "tmpIcons",
 pngPath = "pngIcons",
 gifPath = "gifIcons",
