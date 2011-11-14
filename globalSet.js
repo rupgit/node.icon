@@ -14,8 +14,12 @@ util = require("util"),
 exec = require("child_process").exec,
 child;
 
+
+
+
 /**
  * Include own modules another comment
+ * This comment requires a merge later
  */
 
 // var col = require("./colorSVG.js");
