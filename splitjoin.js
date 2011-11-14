@@ -7,7 +7,7 @@
  * Include node.js modules
  */
 
-var sys = require("sys"), http = require("http"), fs = require("fs"), util = require("util"), $ = require("jquery"), jqtpl = require("jqtpl"), jsdom = require("jsdom"), htmlparser = require("htmlparser"), exec = require("child_process").exec, child;
+var sys = require("sys"), http = require("http"), fs = require("fs"), util = require("util"), sax = require("sax"), strict = true, parser = sax.parser(strict), $ = require("jquery"), jqtpl = require("jqtpl"), jsdom = require("jsdom"), htmlparser = require("htmlparser"), exec = require("child_process").exec, child; 
 
 /**
  * Define variables
@@ -32,15 +32,12 @@ svgIcon = "";
  * SVG load and change
  */
 
-svgIcon = fs.readFileSync(rootPath + "/All_Import_FinishedProblem_31.svg", encoding='utf8');
+svgIcon = fs.readFileSync(rootPath + "/Organization_32.svg", encoding='utf8');
+console.log(typeof(svgIcon));
 
-var xml = svgIcon,
-xmlDoc = $.parseXML( xml ),
-$xml = $( xmlDoc ),
-$path = $xml.find( "path" );
+parser.write('<xml>Hello, <who name="world">world</who>!</xml>').close();
 
-console.log($path);
-
+console.log(xml);
 
 /**
  * HTML Template
@@ -64,6 +61,23 @@ http.createServer(function(request, response) {
 	console.log(http.createServer());
 }).listen(9090);
 sys.puts("Server running at http://localhost:9090/");
+
+/**
+ * unsuccessfull jquery parsing
+ * 
+ * var testString = "<rss version='2.0'><channel><title>RSS Title</title></channel></rss>"
+	
+xmlDoc = $.parseXML(testString),
+$xml = $(xmlDoc),
+$title = $xml.find( "title" );
+
+console.log($title.text);
+
+ * 
+ * 
+ * 
+ */
+
 
 /**
  * Define vars
