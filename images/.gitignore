@@ -1,0 +1,8 @@
+# Ignore everything in this directory
+*.svg
+# Except
+!.gitignore
+# Samples to start with
+!PlusMediumview_16_16.svg
+!Organization_32.svg
+!SharedInvolved_32_32.svg
