@@ -36,7 +36,6 @@ var rootPath = 		"/tmp/node.icon/images",
 */
 	readSVGs = "", readTMPs = "", svgIcon = "",
 	fillNewColor = "", lineNewColor = "", backNewColor = "";
-
 /**
  * Check for existing paths and create missing paths
  */
@@ -61,7 +60,6 @@ for ( var e in setupPath) {
 };
 
 console.log("paths missing: " + arrayPath);
-
 
 for (var i in arrayPath) {
 	fs.mkdirSync(rootPath + "/" + arrayPath[i] + "/", 448);
@@ -136,19 +134,24 @@ for (var i in readSVGs) {
 						throw err;
 				});
 		console.log("SVG written:" + fileNameOut);
+	};
+};
 
+readSVGs = fs.readdirSync(rootPath + "/" + setupPath[0]);
+console.log("svg-exports names fetched: " + readSVGs);
+
+for (var i in readSVGs) {
 		/**
 		 * Triggers graphicsmagick process to convert svg
 		 */
-		gm(fileNameOut + ".svg")
+		gm(rootPath + "/" + setupPath[0] + "/" + readSVGs[i])
 		.flip()
 		.rotate('green', 45)
 		.blur(7, 3)
 		.crop(300, 300, 150, 130)
 		.edge(3)
-		.write(rootPath + "/" + setupPath[2] + "/" + readSVGs[i].replace(/.svg/gi, "") + iconStates.bindings[e].name + ".png", function (err) {
+		.write(rootPath + "/" + setupPath[2] + "/" + readSVGs[i].replace(/.svg/gi, "") + ".png", function (err) {
 		  if (!err) console.log('Graphicksmagic caused an Error!');
 		})
-		console.log("PNG written" + fileNameOut);
-	};
-}
+		console.log("PNG written" + rootPath + "/" + setupPath[2] + "/" + readSVGs[i].replace(/.svg/gi, "") + ".png");
+};
