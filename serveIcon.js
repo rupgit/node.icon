@@ -21,7 +21,7 @@ var http = require("http"),
  * Define path variables
  */
 
-var rootPath = 		"/home/kiefl/node.icon/images",
+var rootPath = 		"/tmp/node.icon/images",
 	sourcePath =		"sourceSVG"
 	setupPath = 		[
 	            		 "tmpSVG",

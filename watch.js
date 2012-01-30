@@ -32,7 +32,7 @@ var rootPath = "../images",
  * Test output
  */
 
-watch.watchTree('/home/kiefl/node.icon/images/tmpSVG', function(f, curr, prev) {
+watch.watchTree('/tmp/node.icon/images/tmpSVG', function(f, curr, prev) {
 	if (typeof f == "object" && prev === null && curr === null) {
 		console.log("Finished walking tree");
 		// Finished walking the tree
