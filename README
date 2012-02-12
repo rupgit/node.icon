@@ -2,9 +2,8 @@ node.icon 0.2 (Alpha)
 
 author: rupgit
 
-node.icon is a set of scripts that aim at converting SVG images to GIF format.
-It does NOT make use of async features of node.js for now. The aim is to port old processing scripts to node.js.
-Basically it is used to convert an iconset to a different color skin with different states ('hover', 'static', ...)
+node.icon is a set of scripts that aim at creating different icon libraries for different themes. Icon libraries need to be provided as SVG images and will be converted to bitmap formats.
+It does NOT make use of async features of node.js for now. The aim is to port old processing scripts to node.js. Basically it is used to convert an icon library to a different color skin with different states ('hover', 'static', ...)
 
 Many thanks to the community for sharing modules and documentation! 
 
@@ -13,7 +12,7 @@ To get it running create the folder structure:
 /tmp/node.icon/images/sourceSVG
 
 convertIcon.js ... converts, copies do a folder called uie_icons
-serveIcon.js ... creates a testIcon.html which shows the files, that have been created
+serveIcon.js ... creates a testIcon.html which shows all the files, that have been created
 watch.js ... watches the output folder for new files
 
 Planning:
