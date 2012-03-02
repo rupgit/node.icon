@@ -1,4 +1,4 @@
-node.icon 0.2 (Alpha)
+node.icon 0.3 (Alpha)
 
 author: rupgit
 
@@ -7,13 +7,16 @@ It does NOT make use of async features of node.js for now. The aim is to port ol
 
 Many thanks to the community for sharing modules and documentation! 
 
-To get it running create the folder structure:
+node.js creates the following output folder structure:
 
-/tmp/node.icon/images/sourceSVG
+/tmp/outIcons$timestamp$/
+/tmp/outIcons$timestamp$/liferay_icons
+/tmp/outIcons$timestamp$/tmpSVG
+/tmp/outIcons$timestamp$/uie_icons
 
-convertIcon.js ... converts, copies do a folder called uie_icons
-serveIcon.js ... creates a testIcon.html which shows all the files, that have been created
-watch.js ... watches the output folder for new files
+convertIcon.js ... converts, copies to a folder called uie_icons
+serveIcon.js ... creates a testIcon.html which shows all the files, that have been created (!!not working for now due to problems with jsdom/contextify!!)
+watch.js ... watches the output folder for new files (!!still in preparation!!)
 
 Planning:
 
