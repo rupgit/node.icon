@@ -12,6 +12,7 @@ var http = require("http"),
 	gm = require('gm'),
     url = require("url"),
     path = require("path"),
+    jsdom = require('jsdom'),
     exec = require("child_process").exec,
 	child;
 
@@ -19,8 +20,10 @@ var http = require("http"),
  * Define path variables
  */
 
-var rootPath = 		"/tmp/node.icon/images",
-	sourcePath =		"sourceSVG"
+var	sourcePath = "svgIcons",
+	rootPath = 	"/tmp",
+	createTime = new Date(),
+	outPath = rootPath + "/outIcons" + createTime.getTime(),
 	setupPath = 		[
 	            		 "tmpSVG",
 	            		 "liferay_icons",
@@ -34,41 +37,9 @@ var rootPath = 		"/tmp/node.icon/images",
 /**
 * Define graphics containers and colors
 */
-	readSVGs = "", readTMPs = "", svgIcon = "",
-	fillNewColor = "", lineNewColor = "", backNewColor = "";
-/**
- * Check for existing paths and create missing paths
- */
+	
+	readSVGs = "", readTMPs = "", svgIcon = "",	fillNewColor = "", lineNewColor = "", backNewColor = "";
 
-checkPath = fs.readdirSync(rootPath);
-console.log("checkPath read: " + checkPath);
-console.log("setupPath is: " + setupPath);
-
-function include(arr, obj) {
-	for ( var i = 0; i < arr.length; i++) {
-		if (arr[i] == obj)
-			return true;
-	}
-}
-
-for ( var e in setupPath) {
-	if (include(checkPath, setupPath[e])) {
-		console.log("path found: " + setupPath[e]);
-	} else {
-		arrayPath.push(setupPath[e]);
-	}
-};
-
-console.log("paths missing: " + arrayPath);
-
-for (var i in arrayPath) {
-	fs.mkdirSync(rootPath + "/" + arrayPath[i] + "/", 448);
-};
-
-/**
- * Fetch icons from file system, pass them to svgIcon variable, change colors
- * and write them to output path (single quotes after regex needed!)
- */
 /**
  * Color replacement vars
  */
@@ -118,17 +89,55 @@ var iconStates = {
 	}]
 };
 
-readSVGs = fs.readdirSync(rootPath + "/" + sourcePath);
+/**
+ * Check for existing paths and create missing paths
+ */
+
+console.log("this is the outPath " + outPath);
+
+function createOutputFolders() {
+	console.log("function createOutputFolders() called");
+	fs.mkdirSync(outPath);
+	for (var e in setupPath) {
+		fs.mkdirSync(outPath + "/" + setupPath[e])
+		};
+}
+
+path.exists(rootPath, function (exists) {
+	if (exists == true) {
+			console.log("tmp ist da");
+			createOutputFolders();
+			svgProcessing();
+			pngProcessing();
+			//serveIcon();
+
+	} else {
+			fs.mkdirSync(rootPath);
+			createOutputFolders();
+			svgProcessing();
+			pngProcessing();
+			//serveIcon();
+	}
+});
+
+/**
+ * Fetch icons from file system, pass them to svgIcon variable, change colors
+ * and write them to output path (single quotes after regex needed!)
+ */
+
+function svgProcessing() {
+
+readSVGs = fs.readdirSync(sourcePath);
 console.log("svg names fetched: " + readSVGs);
 
 for (var i in readSVGs) {
-	svgIcon = fs.readFileSync(rootPath + "/" + sourcePath + "/" + readSVGs[i], encoding = 'utf8');
+	svgIcon = fs.readFileSync(sourcePath + "/" + readSVGs[i], encoding = 'utf8');
 	for ( var e in iconStates.bindings) {
 		var oldLine = new RegExp(sourceIcon.oldLine, "gi");
 		var oldFill = new RegExp(sourceIcon.oldFill, "gi");
 		var oldBack = new RegExp(sourceIcon.oldBack, "gi");
 		var iconStateNew = svgIcon.replace(oldLine, iconStates.bindings[e].line).replace(oldFill, iconStates.bindings[e].fill).replace(oldBack, iconStates.bindings[e].back);
-		var fileNameOut = rootPath + "/" + setupPath[0] + "/" + readSVGs[i].replace(/.svg/gi, "") + iconStates.bindings[e].name; 
+		var fileNameOut = outPath + "/" + setupPath[0] + "/" + readSVGs[i].replace(/.svg/gi, "") + iconStates.bindings[e].name; 
 		fs.writeFileSync(fileNameOut + ".svg", iconStateNew, encoding = "utf8", function(err) {
 					if (err)
 						throw err;
@@ -136,22 +145,26 @@ for (var i in readSVGs) {
 		console.log("SVG written:" + fileNameOut);
 	};
 };
+}
+/**
+ * Triggers graphicsmagick process to convert svg
+ */
 
-readSVGs = fs.readdirSync(rootPath + "/" + setupPath[0]);
-console.log("svg-exports names fetched: " + readSVGs);
+function pngProcessing() {
 
-for (var i in readSVGs) {
-		/**
-		 * Triggers graphicsmagick process to convert svg
-		 */
-		gm(rootPath + "/" + setupPath[0] + "/" + readSVGs[i])
-		.flip()
-		.rotate('green', 45)
-		.blur(7, 3)
-		.crop(300, 300, 150, 130)
-		.edge(3)
-		.write(rootPath + "/" + setupPath[2] + "/" + readSVGs[i].replace(/.svg/gi, "") + ".png", function (err) {
-		  if (!err) console.log('Graphicksmagic caused an Error!');
-		})
-		console.log("PNG written" + rootPath + "/" + setupPath[2] + "/" + readSVGs[i].replace(/.svg/gi, "") + ".png");
-};
+child = exec("gm mogrify -transparent #" + iconStates.bindings[0].back + " -format png -resize 10% " + outPath + "/" + setupPath[0] + "/*.svg", function (error, stdout, stderr) {
+	console.log('stdout: ' + stdout + "pngs written");
+	console.log('stderr: ' + stderr);
+	if (error !== null) {
+		console.log('exec error: ' + error);
+	}
+	readPNGs = fs.readdirSync(outPath + "/" + setupPath[0]);
+	console.log(readPNGs);
+	for (var i in readPNGs) {
+		if (readPNGs[i].indexOf(".png") !== -1) {
+	var pngBuffer = fs.readFileSync(outPath + "/" + setupPath[0] + "/" + readPNGs[i]);
+	fs.writeFileSync(outPath + "/" + setupPath[2] + "/" + readPNGs[i], pngBuffer);
+		}
+	}
+});
+}
