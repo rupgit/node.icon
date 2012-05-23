@@ -6,22 +6,27 @@
  * Include node.js modules
  */
 
-var http = require("http"),
-	fs = require("fs"),
-	util = require("util"),
+var http = require('http'),
+	fs = require('fs'),
+	util = require('util'),
 	gm = require('gm'),
-    url = require("url"),
-    path = require("path"),
-    jsdom = require('jsdom'),
+    url = require('url'),
+    path = require('path'),
+    mu = require('mu2'),
     querystring = require('querystring'),
-    exec = require("child_process").exec,
+    exec = require('child_process').exec,
 	child;
+
+	mu.root = './templates';
 
 /**
  * Define path variables
  */
 
-var rootPath = 		"/tmp/node.icon/images",
+var outPath = fs.readFileSync("createTime");
+console.log("createTime is: " + outPath);
+
+var rootPath = 		outPath,
 	sourcePath =		"sourceSVG"
 	setupPath = 		[
 	            		 "tmpSVG",
@@ -39,12 +44,26 @@ var rootPath = 		"/tmp/node.icon/images",
  * 
  */
 	var iconNames = fs.readdirSync(rootPath + "/" + setupPath[2]);
-	console.log(iconNames);
+	console.log(iconNames.toJSON());
+
 	
+	http.createServer(function (req, res) {
+
+		  if (process.env.NODE_ENV == 'DEVELOPMENT') {
+		    mu.clearCache();
+		  }
+
+		  var stream = mu.compileAndRender('index.html', {name: "john"});
+		  util.pump(stream, res);
+
+		}).listen(8088);	
+	
+	
+	/**	
 	jsdom.env({
 		/**
 		 * Create template page
-		 */
+		 
 		html: "<html><body></body></html>",
 		scripts: ["http://code.jquery.com/jquery-1.5.min.js"]
 		}, function (err, window) {

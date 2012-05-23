@@ -6,14 +6,14 @@
  * Include node.js modules
  */
 
-var http = require("http"),
-	fs = require("fs"),
+var http = require('http'),
+	fs = require('fs'),
 	util = require("util"),
 	gm = require('gm'),
-    url = require("url"),
-    path = require("path"),
+    url = require('url'),
+    path = require('path'),
     jsdom = require('jsdom'),
-    exec = require("child_process").exec,
+    exec = require('child_process').exec,
 	child;
 
 /**
@@ -22,8 +22,9 @@ var http = require("http"),
 
 var	sourcePath = "svgIcons",
 	rootPath = 	"/tmp",
-	createTime = new Date(),
-	outPath = rootPath + "/outIcons" + createTime.getTime(),
+	createTime = new Date().getTime(),
+	saveTime = createTime.toString(),
+	outPath = rootPath + "/outIcons" + saveTime,
 	setupPath = 		[
 	            		 "tmpSVG",
 	            		 "liferay_icons",
@@ -36,8 +37,7 @@ var	sourcePath = "svgIcons",
 
 /**
 * Define graphics containers and colors
-*/
-	
+*/	
 	readSVGs = "", readTMPs = "", svgIcon = "",	fillNewColor = "", lineNewColor = "", backNewColor = "";
 
 /**
@@ -90,13 +90,14 @@ var iconStates = {
 };
 
 /**
- * Check for existing paths and create missing paths
+ * Check for existing paths and create missing paths and store
  */
 
-console.log("this is the outPath " + outPath);
+console.log("store " + outPath);
+
+fs.writeFileSync("createTime", outPath);
 
 function createOutputFolders() {
-	console.log("function createOutputFolders() called");
 	fs.mkdirSync(outPath);
 	for (var e in setupPath) {
 		fs.mkdirSync(outPath + "/" + setupPath[e])
@@ -105,7 +106,7 @@ function createOutputFolders() {
 
 path.exists(rootPath, function (exists) {
 	if (exists == true) {
-			console.log("tmp ist da");
+			console.log("*** tmp exists ***");
 			createOutputFolders();
 			svgProcessing();
 			pngProcessing();
@@ -128,7 +129,7 @@ path.exists(rootPath, function (exists) {
 function svgProcessing() {
 
 readSVGs = fs.readdirSync(sourcePath);
-console.log("svg names fetched: " + readSVGs);
+console.log("*** svg names fetched ***");
 
 for (var i in readSVGs) {
 	svgIcon = fs.readFileSync(sourcePath + "/" + readSVGs[i], encoding = 'utf8');
@@ -142,7 +143,7 @@ for (var i in readSVGs) {
 					if (err)
 						throw err;
 				});
-		console.log("SVG written:" + fileNameOut);
+		console.log("*** svg written: ***" + fileNameOut);
 	};
 };
 }
@@ -168,3 +169,4 @@ child = exec("gm mogrify -transparent #" + iconStates.bindings[0].back + " -form
 	}
 });
 }
+ 
