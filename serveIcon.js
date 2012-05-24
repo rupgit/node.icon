@@ -36,7 +36,7 @@ var rootPath = 		outPath,
 	arrayPath = [],
 	checkPath = [],
 	iconStatus = "_test",
-	iconNames = [1,2,3,4],
+	iconNames = [],
     iconNamesHTML = "";
 
 /**
@@ -44,8 +44,8 @@ var rootPath = 		outPath,
  * 
  */
 	var iconNames = fs.readdirSync(rootPath + "/" + setupPath[2]);
-	console.log(iconNames.toJSON());
-
+	console.log(iconNames);
+	console.log(typeof(iconNames));
 	
 	http.createServer(function (req, res) {
 
@@ -53,9 +53,16 @@ var rootPath = 		outPath,
 		    mu.clearCache();
 		  }
 
-		  var stream = mu.compileAndRender('index.html', {name: "john"});
+		  var stream = mu.compileAndRender("index.html", {
+			  "repo": [
+			           { "name": "This" },
+			           { "name": " is just" },
+			           { "name": " a test" },
+			           ]
+			       }
+		  );
 		  util.pump(stream, res);
-
+		  
 		}).listen(8088);	
 	
 	
