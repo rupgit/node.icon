@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 43363)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="256px"
+	 height="256px" viewBox="-1603 1497 256 256" enable-background="new -1603 1497 256 256" xml:space="preserve">
+<g id="Hilfslinien">
+</g>
+<g id="back">
+	<rect x="-1603" y="1497" fill="#FF00FF" width="256" height="256"/>
+</g>
+<g id="front_Kopie">
+	<path fill="#FFFF00" d="M-1354.999,1577L-1354.999,1577c0-2.209-0.896-4.209-2.344-5.656l0.001-0.001l-64.001-64.002l-0.001,0.001
+		c-1.448-1.447-3.447-2.342-5.655-2.343v-0.001H-1507v0.001h-0.001c-4.416-0.002-7.998,3.581-7.998,7.999h0v192.001h0
+		c0.001,4.419,3.583,8,8,7.999c0,0,0.001,0,0.001,0v0.001l143.496-0.026c0.167,0.011,0.333,0.025,0.502,0.025
+		c4.417,0.001,7.998-3.58,8-7.999h0V1577z"/>
+	<line fill="none" stroke="#00FF00" stroke-width="16" x1="-1362.999" y1="1704.999" x2="-1362.999" y2="1577"/>
+	<circle fill="#00FF00" cx="-1427.001" cy="1576.999" r="8"/>
+	<circle fill="#00FF00" cx="-1363.001" cy="1577.001" r="8"/>
+	<circle fill="#00FF00" cx="-1427.002" cy="1512.999" r="8"/>
+	<circle fill="#00FF00" cx="-1507.001" cy="1512.999" r="8"/>
+	<circle fill="#00FF00" cx="-1507.001" cy="1704.998" r="8"/>
+	<circle fill="#00FF00" cx="-1363.001" cy="1704.998" r="8"/>
+	<line fill="none" stroke="#00FF00" stroke-width="16" x1="-1426.999" y1="1512.998" x2="-1507" y2="1512.998"/>
+	<line fill="none" stroke="#00FF00" stroke-width="16" x1="-1427" y1="1512.998" x2="-1427" y2="1577"/>
+	<line fill="none" stroke="#00FF00" stroke-width="16" x1="-1362.999" y1="1577" x2="-1427" y2="1577"/>
+	<line fill="none" stroke="#00FF00" stroke-width="16" x1="-1507" y1="1512.998" x2="-1507" y2="1704.999"/>
+	<line fill="none" stroke="#00FF00" stroke-width="16" x1="-1507" y1="1704.999" x2="-1362.92" y2="1704.973"/>
+	<line fill="none" stroke="#00FF00" stroke-width="16" x1="-1362.999" y1="1577" x2="-1427" y2="1512.998"/>
+</g>
+<g id="Ebene_7">
+	<circle fill="#00FF00" cx="-1531" cy="1681" r="64"/>
+	<line fill="none" stroke="#FFFF00" stroke-width="16" x1="-1579" y1="1681" x2="-1483" y2="1681"/>
+	<line fill="none" stroke="#FFFF00" stroke-width="16" x1="-1531" y1="1729.001" x2="-1531" y2="1632.999"/>
+	<circle fill="#FFFF00" cx="-1579" cy="1681" r="8"/>
+	<circle fill="#FFFF00" cx="-1482.997" cy="1681" r="8"/>
+	<circle fill="#FFFF00" cx="-1530.999" cy="1729.004" r="8"/>
+	<circle fill="#FFFF00" cx="-1530.999" cy="1632.996" r="8"/>
+</g>
+</svg>
