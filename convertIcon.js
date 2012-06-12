@@ -9,10 +9,8 @@
 var http = require('http'),
 	fs = require('fs'),
 	util = require("util"),
-	gm = require('gm'),
     url = require('url'),
     path = require('path'),
-    jsdom = require('jsdom'),
     exec = require('child_process').exec,
 	child;
 
@@ -153,7 +151,7 @@ for (var i in readSVGs) {
 
 function pngProcessing() {
 
-child = exec("gm mogrify -transparent #" + iconStates.bindings[0].back + " -format png -resize 10% " + outPath + "/" + setupPath[0] + "/*.svg", function (error, stdout, stderr) {
+child = exec("gm mogrify -transparent #" + iconStates.bindings[0].back + " -format png -geometry x16 -depth 8 -colors 32 " + outPath + "/" + setupPath[0] + "/*.svg", function (error, stdout, stderr) {
 	console.log('stdout: ' + stdout + "pngs written");
 	console.log('stderr: ' + stderr);
 	if (error !== null) {
