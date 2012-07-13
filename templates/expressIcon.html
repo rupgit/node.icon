@@ -1,8 +1,51 @@
-<script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io.connect();
-  socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
-  });
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $.ajax({
+        url: 'http://localhost:8084/',
+        dataType: "jsonp",
+        jsonpCallback: "_testcb",
+        cache: false,
+        timeout: 5000,
+        success: function(data) {
+            $("#test").append(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('error ' + textStatus + " " + errorThrown);
+        }
+    });
+});
 </script>
+</head>
+
+
+<body>
+
+<h1>Colors for state active</h1>
+<form action="/" method="POST" name="form1">
+<ul>
+<li>
+	State<input name="name" type="text" id="name" value="_static" />
+</li>
+<li>
+	Line-Color<input name="line" type="text" id="line" value="#123456" />
+</li>
+<li>
+	Fill-Color<input name="fill" type="text" id="fill" value="#123456" />
+</li>
+<li>
+	Back-Color<input name="back" type="text" id="back" value="#123456" />
+</li>
+<li>
+	<button type="submit" id="btnPost">Change Background</button>
+</ul>
+</form>
+
+<div id="test">Test here
+<div>
+
+</body>
+</html>
