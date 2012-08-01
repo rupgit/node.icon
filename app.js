@@ -2,13 +2,7 @@ var http = require('http');
 var util = require('util');
 var fs = require('fs');
 var querystring = require('querystring');
-
-http.createServer(function (req, res) {
-    console.log('request received');
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('_testcb(\'"message "\')');
-}).listen(8084);
-
+var io = require('socket.io').listen(8085);
 
 var chunk = '';
 
@@ -18,7 +12,8 @@ function bindData(data) {
 };
 
 function availableForm() {
-	console.log('Outside available data: ' + util.inspect(querystring.parse(chunk)));
+	console.log('Outside available data: '
+			+ util.inspect(querystring.parse(chunk)));
 }
 
 var server = http.createServer(function(req, res) {
@@ -29,7 +24,14 @@ var server = http.createServer(function(req, res) {
 		req.on('end', sendData);
 		function sendData() {
 			res.end(util.inspect(querystring.parse(chunk)));
-		}
-		;
+		};
 	}
 }).listen(8083);
+
+http.createServer(function(req, res) {
+		req.on('data', bindData);
+		req.on('end', sendData);
+		function sendData() {
+			res.end(chunk);
+		};
+}).listen(8084);
